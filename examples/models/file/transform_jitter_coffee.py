@@ -4,7 +4,7 @@ from bokeh.plotting import figure, show, output_file
 from bokeh.models.sources import ColumnDataSource
 from bokeh.models import CustomJS, Button, LabelSet
 from bokeh.models.transforms import Jitter
-from bokeh.models.layouts import Column, WidgetBox
+from bokeh.models.layouts import Column
 
 N = 1000
 
@@ -36,8 +36,8 @@ callback=CustomJS.from_coffeescript(args=dict(source=source, normal=normal, unif
     source.change.emit()
 """)
 
-button = Button(label='Press to apply Jitter!', callback=callback)
+button = Button(label='Press to apply Jitter!', width=300, callback=callback)
 
 output_file("transform_jitter_coffee.html", title="Example Jitter Transform (CoffeeScript callback)")
 
-show(Column(WidgetBox(button,width=300), p))
+show(Column(button, p))
