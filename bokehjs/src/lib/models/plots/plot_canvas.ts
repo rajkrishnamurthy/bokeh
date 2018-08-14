@@ -469,9 +469,10 @@ export abstract class PlotCanvasView extends LayoutDOMView {
     let follow_enabled = false
     let has_bounds = false
 
+    const {width, height} = this.frame.bbox
     let r: number | undefined
-    if (this.model.match_aspect !== false && this.frame._width.value != 0 && this.frame._height.value != 0)
-      r = (1/this.model.aspect_scale)*(this.frame._width.value/this.frame._height.value)
+    if (this.model.match_aspect !== false && width != 0 && height != 0)
+      r = (1/this.model.aspect_scale)*(width/height)
 
     for (const xr of values(this.frame.x_ranges)) {
       if (xr instanceof DataRange1d) {
@@ -868,7 +869,11 @@ export abstract class PlotCanvasView extends LayoutDOMView {
       layout_height: Math.round(this.layout._height.value),
     }, {no_change: true})
 
-    // XXX: update frame ranges
+    if (this.model.match_aspect !== false) {
+      this.pause()
+      this.update_dataranges()
+      this.unpause(true)
+    }
 
     // TODO: do only if necessary
     const width = this.layout._width.value
@@ -880,13 +885,6 @@ export abstract class PlotCanvasView extends LayoutDOMView {
     // responsive this way, especially in interactive mode.
     this.paint()
   }
-
-  /* XXX
-  render(): void {
-    if (this.model.match_aspect !== false && this.frame._width.value != 0 && this.frame._height.value != 0)
-      this.update_dataranges()
-  }
-  */
 
   protected _needs_layout(): boolean {
     return true
