@@ -6,7 +6,7 @@ import {Renderer, RendererView} from "../renderers/renderer"
 import {GlyphRenderer, GlyphRendererView} from "../renderers/glyph_renderer"
 import {ToolView} from "../tools/tool"
 import {Selection} from "../selections/selection"
-import {LayoutDOMView} from "../layouts/layout_dom"
+import {LayoutDOM, LayoutDOMView} from "../layouts/layout_dom"
 import {Plot} from "./plot"
 import {Annotation} from "../annotations/annotation"
 import {Title} from "../annotations/title"
@@ -173,6 +173,10 @@ export abstract class PlotCanvasView extends LayoutDOMView {
     return {plot_view: this, parent: this}
   }
 
+  get child_models(): LayoutDOM[] {
+    return []
+  }
+
   pause(): void {
     if (this._is_paused == null)
       this._is_paused = 1
@@ -337,7 +341,6 @@ export abstract class PlotCanvasView extends LayoutDOMView {
       return layouts
     }
 
-    this.layout = new PlotLayout()
     this.layout.center_panel = this.frame
 
     const min_border = this.model.min_border != null ? this.model.min_border : 0
@@ -358,6 +361,10 @@ export abstract class PlotCanvasView extends LayoutDOMView {
 
     this.unpause(true)
     logger.debug("PlotView initialized")
+  }
+
+  update_layout(): void {
+    this.layout = new PlotLayout()
   }
 
   get axis_views(): AxisView[] {
