@@ -501,7 +501,7 @@ if wdg_arr is not None:
 gl['df_source'], gl['columns'] = get_data(defaults['data_source'])
 gl['widgets'] = build_widgets(gl['df_source'], gl['columns'], defaults, init_load=True, init_config=wdg_config)
 set_wdg_col_options()
-gl['controls'] = bl.widgetbox(list(gl['widgets'].values()), id='widgets_section')
+gl['controls'] = bl.column(list(gl['widgets'].values()), id='widgets_section')
 gl['plots'] = bl.column([], id='plots_section')
 update_plots()
 layout = bl.row(gl['controls'], gl['plots'], id='layout')
