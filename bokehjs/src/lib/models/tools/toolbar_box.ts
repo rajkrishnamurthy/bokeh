@@ -194,6 +194,7 @@ export class ToolbarBoxView extends LayoutDOMView {
 
   update_layout(): void {
     // this.layout = TODO
+    // this.layout.sizing = this.box_sizing
   }
 
   /* XXX
