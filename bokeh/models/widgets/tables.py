@@ -575,4 +575,6 @@ class DataTable(TableWidget):
     Whether to show a header row with column names at the top of the table.
     """)
 
+    width = Override(default=600)
+
     height = Override(default=400)
