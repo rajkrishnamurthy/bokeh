@@ -5,7 +5,7 @@ so that you can easily switch to compare positioning and appearance.
 
 """
 from bokeh.plotting import show, output_file, figure
-from bokeh.models.widgets import Tabs, Panel
+from bokeh.models import Tabs, Panel
 from bokeh.sampledata.iris import flowers
 
 def make_tab(title, marker, backend):
