@@ -434,9 +434,48 @@ class JSON(String):
             msg = "" if not detail else "expected JSON text, got %r" % value
             raise ValueError(msg)
 
+
+class Struct(ParameterizedProperty):
+    ''' Accept values that are structures.
+
+
+    '''
+    def __init__(self, **fields):
+        default = fields.pop("default", None)
+        help = fields.pop("help", None)
+
+        self._fields = {}
+        for name, type in fields.items():
+            self._fields[name] = self._validate_type_param(type)
+
+        super(Struct, self).__init__(default=default, help=help)
+
+    @property
+    def type_params(self):
+        return list(self._fields.values())
+
+    def validate(self, value, detail=True):
+        super(Struct, self).validate(value, detail)
+
+        if value is None:
+            return
+
+        if isinstance(value, dict) and len(value) <= len(self._fields):
+            for name, type in self._fields.items():
+                if not type.is_valid(value.get(name, None)):
+                    break
+            else:
+                return
+
+        msg = "" if not detail else "expected an element of %s, got %r" % (self, value)
+        raise ValueError(msg)
+
+    def __str__(self):
+        fields = [ "%s=%s" % (name, type) for name, type in self._fields.items() ]
+        return "%s(%s)" % (self.__class__.__name__, ", ".join(fields))
+
 class Instance(Property):
     ''' Accept values that are instances of |HasProps|.
-
 
 
     '''

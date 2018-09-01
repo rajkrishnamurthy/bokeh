@@ -247,8 +247,17 @@ JitterRandomDistribution = enumeration("uniform", "normal")
 #: Specify sorting directions
 SortDirection = enumeration("ascending", "descending")
 
-#: Sizing mode policies
+#: Combined sizing mode policies
 SizingMode = enumeration("stretch_both", "scale_width", "scale_height", "scale_both", "fixed")
+
+#: Individual sizing mode policies
+SizingPolicy = enumeration("auto", "fixed", "min", "max")
+
+#: Grid track (row/column) sizing policies
+TrackPolicy = enumeration("auto", "min", "max", "flex", "fixed")
+
+#: Grid track (row/column) alignment (vertical/horizontal) of child items
+TrackAlign = enumeration("start", "center", "end")
 
 #: Specify how a legend should respond to click events
 LegendClickPolicy = enumeration("none", "hide", "mute")
