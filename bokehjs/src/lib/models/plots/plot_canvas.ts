@@ -131,7 +131,7 @@ export class PlotLayout extends Layoutable {
   }
 }
 
-export abstract class PlotCanvasView extends LayoutDOMView {
+export class PlotView extends LayoutDOMView {
   model: Plot
   visuals: Plot.Visuals
 
@@ -992,7 +992,7 @@ export abstract class PlotCanvasView extends LayoutDOMView {
     if (this.is_paused)
       return
 
-    logger.trace(`PlotCanvasView.paint() for ${this.model.id}`)
+    logger.trace(`PlotView.paint() for ${this.model.id}`)
 
     const {document} = this.model
     if (document != null) {
