@@ -54,8 +54,7 @@ class Test_PasswordInput(object):
 
         page = bokeh_model_page(pw_input)
 
-        input_div = page.driver.find_element_by_class_name('foo')
-        el = input_div.find_element_by_tag_name("input")
+        el = page.driver.find_element_by_css_selector('.foo input')
         assert el.get_attribute('type') == "password"
 
         assert page.has_no_console_errors()
@@ -65,12 +64,10 @@ class Test_PasswordInput(object):
 
         page = bokeh_model_page(pw_input)
 
-        input_div = page.driver.find_element_by_class_name('foo')
-        el = input_div.find_element_by_tag_name("label")
+        el = page.driver.find_element_by_css_selector('.foo label')
         assert el.text == "title"
-        el = input_div.find_element_by_tag_name("input")
+        el = page.driver.find_element_by_css_selector('.foo input')
         assert el.get_attribute('placeholder') == ""
-
         assert el.get_attribute('type') == "password"
 
         assert page.has_no_console_errors()
@@ -80,12 +77,10 @@ class Test_PasswordInput(object):
 
         page = bokeh_model_page(pw_input)
 
-        input_div = page.driver.find_element_by_class_name('foo')
-        el = input_div.find_element_by_tag_name("label")
+        el = page.driver.find_element_by_css_selector('.foo label')
         assert el.text == ""
-        el = input_div.find_element_by_tag_name("input")
+        el = page.driver.find_element_by_css_selector('.foo input')
         assert el.get_attribute('placeholder') == "placeholder"
-
         assert el.get_attribute('type') == "password"
 
         assert page.has_no_console_errors()
@@ -93,10 +88,8 @@ class Test_PasswordInput(object):
     def test_server_on_change_no_round_trip_without_enter_or_click(self, bokeh_server_page):
         page = bokeh_server_page(modify_doc)
 
-        el = page.driver.find_element_by_class_name('foo')
-
-        # not change event if enter is not pressed
-        enter_text_in_element(page.driver, el, "pre", enter=False)
+        el = page.driver.find_element_by_css_selector('.foo input')
+        enter_text_in_element(page.driver, el, "pre", enter=False) # not change event if enter is not pressed
 
         page.click_custom_action()
 
@@ -109,8 +102,7 @@ class Test_PasswordInput(object):
     def test_server_on_change_round_trip(self, bokeh_server_page):
         page = bokeh_server_page(modify_doc)
 
-        el = page.driver.find_element_by_class_name('foo')
-
+        el = page.driver.find_element_by_css_selector('.foo input')
         enter_text_in_element(page.driver, el, "val1")
 
         page.click_custom_action()
@@ -147,8 +139,7 @@ class Test_PasswordInput(object):
 
         page = single_plot_page(column(text_input, plot))
 
-        el = page.driver.find_element_by_class_name('foo')
-
+        el = page.driver.find_element_by_css_selector('.foo input')
         enter_text_in_element(page.driver, el, "val1")
 
         results = page.results
@@ -178,8 +169,7 @@ class Test_PasswordInput(object):
 
         page = single_plot_page(column(text_input, plot))
 
-        el = page.driver.find_element_by_class_name('foo')
-
+        el = page.driver.find_element_by_css_selector('.foo input')
         enter_text_in_element(page.driver, el, "val1")
 
         results = page.results
