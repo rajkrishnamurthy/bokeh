@@ -1,5 +1,6 @@
 import * as visuals from "core/visuals"
 import * as p from "core/properties"
+import {Class} from "core/class"
 import {Signal0} from "core/signaling"
 import {Color} from "core/types"
 import {LineJoin, LineCap} from "core/enums"
@@ -135,6 +136,7 @@ export interface Plot extends Plot.Attrs {}
 
 export class Plot extends LayoutDOM {
   properties: Plot.Props
+  default_view: Class<PlotView, [PlotView.Options]>
 
   use_map?: boolean
 
