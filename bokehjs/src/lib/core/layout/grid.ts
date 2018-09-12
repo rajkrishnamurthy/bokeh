@@ -1,5 +1,6 @@
 import {SizeHint, Layoutable} from "./layout_canvas"
 import {isNumber, isString} from "../util/types"
+import {Set} from "core/util/data_structures"
 import {BBox} from "../util/bbox"
 
 const {max, round} = Math

@@ -79,7 +79,7 @@ export class Set<T> {
     return `Set([${this.values.join(",")}])`
   }
 
-  length(): number {
+  get size(): number {
     return this._values.length
   }
 
@@ -104,6 +104,10 @@ export class Set<T> {
       this._values.push(item)
     else
       this._values.splice(i, 1)
+  }
+
+  clear(): void {
+    this._values = []
   }
 
   union(input: T[] | Set<T>): Set<T> {
@@ -133,5 +137,11 @@ export class Set<T> {
     }
 
     return output
+  }
+
+  forEach(fn: (value: T, value2: T, set: Set<T>) => void, thisArg?: any): void {
+    for (const value of this._values) {
+      fn.call(thisArg || this, value, value, this)
+    }
   }
 }
