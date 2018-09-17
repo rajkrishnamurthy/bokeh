@@ -30,7 +30,13 @@ export abstract class ButtonGroupView extends WidgetView {
 
     this._update_active()
 
-    const group = div({class: "bk-btn-group"}, this._buttons)
+    const group = div({
+      class: "bk-btn-group",
+      style: {
+        width: "100%",
+        height: "100%",
+      },
+    }, this._buttons)
     this.el.appendChild(group)
   }
 
@@ -69,6 +75,11 @@ export abstract class ButtonGroup extends Widget {
       labels:      [ p.Array,   []        ],
       button_type: [ p.String,  "default" ],
       callback:    [ p.Any                ],
+    })
+
+    this.override({
+      width: 300,
+      height_policy: "min",
     })
   }
 }
